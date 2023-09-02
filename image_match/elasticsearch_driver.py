@@ -88,9 +88,9 @@ class SignatureES(SignatureDatabaseBase):
 
         return formatted_res
 
-    def insert_single_record(self, rec, refresh_after=False):
+    def insert_single_record(self, rec, refresh_after=False, id=None):
         rec['timestamp'] = datetime.now()
-        self.es.index(index=self.index, body={ self.doc_type: rec }, doc_type='doc', refresh=refresh_after)
+        self.es.index(index=self.index, body={ self.doc_type: rec }, doc_type='doc', id=id, refresh=refresh_after)
 
     def delete_duplicates(self, path):
         """Delete all but one entries in elasticsearch whose `path` value is equivalent to that of path.
